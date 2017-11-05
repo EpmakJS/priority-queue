@@ -34,11 +34,13 @@ class Node {
 	}
 
 	swapWithParent() {
-		if (this.parent) {			
-			let father = this.parent;
+		if (this.parent) {
+			let parent = this.parent;
 			let nextParent = this.parent.parent;
 			let left = this.left;
 			let right = this.right;
+
+			
 			if (nextParent) {
 				if (this.parent === nextParent.left) {
 					nextParent.left = this;
@@ -47,33 +49,33 @@ class Node {
 					nextParent.right = this;
 				}
 			}
-			if (this === father.left){
-				this.left = father;
+			if (this === parent.left){
+				this.left = parent;
 				this.right = this.parent.right
 				
-			} else if (this === father.right){
-				this.right = father;
+			} else if (this === parent.right){
+				this.right = parent;
 				this.left = this.parent.left;
 				 
 			}
-			if (father.left && father.right) {
-				if (this === father.left) {
+			if (parent.left && parent.right) {
+				if (this === parent.left) {
 					this.right.parent = this;
 					
-				} else if (this === father.right) {
+				} else if (this === parent.right) {
 					this.left.parent = this;
 				} 
 			}
-			this.parent = nextParent;			
-			father.parent = this;
-			father.left = left;
-			father.right = right
+			this.parent = nextParent;
+			parent.parent = this;
+			parent.left = left;
+			parent.right = right
 			if (left) {
-				left.parent = father;
-			} 
+				left.parent = parent;
+			}
 			if (right) {
-				right.parent = father;
-			} 	
+				right.parent = parent;
+			}
 		}
 	}
 }
