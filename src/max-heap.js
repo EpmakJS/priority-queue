@@ -1,4 +1,4 @@
-const Node = require('./node');
+const Node = require('./node.js');
 
 class MaxHeap {
 	constructor() {
@@ -14,24 +14,26 @@ class MaxHeap {
 	}
 
 	pop() {
-		if (!this.isEmpty()) {
+		if(this.root != null){
 			let detached = this.detachRoot();
-			this.restoreRootFromLastInsertedNode(detached);
-			this.shiftNodeDown(this.root);
+			if(this.parentNodes.length != 0){
+				this.restoreRootFromLastInsertedNode(detached);
+				this.shiftNodeDown(this.root);
+			}
+			this.heapSize--;
 			return detached.data;
 		}
+		return;
 	}
 
 	detachRoot() {
-		if (this.root) {
-			let detached = this.root;
-			if (this.parentNodes[0]=== this.root) {
-				this.parentNodes.shift();
-			}
-			this.root = null;
-			this.heapSize --;
-			return detached;
-		}
+		if(this.root === null)
+			return;
+		let node = this.root;
+		this.root = null;
+		if(this.parentNodes[0] === node)
+			this.parentNodes.shift();
+		return node;
 	}
 
 	restoreRootFromLastInsertedNode(detached) {
