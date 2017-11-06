@@ -52,7 +52,7 @@ class MaxHeap {
 			}			
 		}
 		if (this.parentNodes.length === 1) {
-			let lastInsertedNode = this.parentNodes[this.parentNodes.length - 1];
+			let lastInsertedNode = this.parentNodes[0];
 			this.root = lastInsertedNode;
 			this.parentNodes.pop();
 		}
@@ -91,10 +91,10 @@ class MaxHeap {
 			if (node.parent === this.root) {
 				this.root = node;
 			}
-			let fatherPos = this.parentNodes.indexOf(node.parent);
+			let parentPos = this.parentNodes.indexOf(node.parent);
 			let nodePos = this.parentNodes.indexOf(node);
-			if (fatherPos != -1) {
-				this.parentNodes[fatherPos] = node;
+			if (parentPos != -1) {
+				this.parentNodes[parentPos] = node;
 			}
 			if (nodePos != -1) {
 				this.parentNodes[nodePos] = node.parent;
@@ -107,9 +107,9 @@ class MaxHeap {
 
 	shiftNodeDown(node) {
 		if (node !== null) {
-			if (node.left!== null || node.right!== null) {
+			if ((node.left && node.left.priority > node.priority) || (node.right && node.right.priority > node.priority)) {
 					let maxChild
-					if (node.left!== null && node.right!== null) {
+					if (node.left && node.right) {
 						if (node.left.priority > node.right.priority) {
 						maxChild = node.left;
 					}
